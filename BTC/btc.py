@@ -13,13 +13,10 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
 		QtWidgets.QMainWindow.__init__(self)
 		Ui_MainWindow.__init__(self)
 		self.setupUi(self)
-		# global today
-		# global daynumber
 		today = datetime.datetime.now()
 		res = today.strftime("%Y-%m-%d")
 		url = "https://api.coindesk.com/v1/bpi/currentprice.json"
 		resp = requests.get(url)
-		# print(resp.json()['bpi'][res])
 		self.label.setText(str(resp.json()['bpi']['USD']['rate']) + " today")
 
 		self.prev_button.clicked.connect(self.GoPrev)
@@ -35,7 +32,6 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
 		url = "https://api.coindesk.com/v1/bpi/historical/close.json"
 		
 		resp = requests.get(url, params={'start' : res , 'end' : res})
-		# print(resp.json()['bpi'][res])
 		self.label.setText(str(resp.json()['bpi'][res]) + " on {}" .format(res))
 
 
